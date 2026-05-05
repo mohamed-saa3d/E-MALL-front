@@ -18,12 +18,14 @@ const envSchema = z.object({
   message: "Invalid URL format or protocol",
 }),
   NEXT_PUBLIC_SOCKET_URL: z.url(),
+  NEXT_PUBLIC_API_TIMEOUT:z.coerce.number().positive().default(15000)
 });
 
 
 const processEnv = {
   NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   NEXT_PUBLIC_SOCKET_URL: process.env.NEXT_PUBLIC_SOCKET_URL,
+  NEXT_PUBLIC_API_TIMEOUT:process.env.NEXT_PUBLIC_API_TIMEOUT
 };
 
 
