@@ -1,12 +1,19 @@
 import React from "react";
 import StoreProvider from "./StoreProvider";
-interface AppProvidersProps {
-  children: React.ReactNode;
-}
-const AppProviders = ({children}:AppProvidersProps) => {
-  return (
-  <StoreProvider>{children}</StoreProvider>
-  )
-}
+import ReactQueryProvider from "./ReactQueryProvider";
+import AuthProvider from "./AuthProvider";
+import { WithChildren } from "@/types/common.types";
 
-export default AppProviders
+type Props = WithChildren;
+
+const AppProviders = ({ children }: Props) => {
+  return (
+    <StoreProvider>
+      <ReactQueryProvider>
+        <AuthProvider>{children}</AuthProvider>
+      </ReactQueryProvider>
+    </StoreProvider>
+  );
+};
+
+export default AppProviders;

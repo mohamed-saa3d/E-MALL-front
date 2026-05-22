@@ -7,10 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "check": "npm run lint && npm run type-check && npm run build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
+    "@tanstack/react-query": "^5.100.9",
+    "@tanstack/react-query-devtools": "^5.100.9",
     "axios": "^1.16.0",
     "next": "16.2.4",
     "react": "19.2.4",

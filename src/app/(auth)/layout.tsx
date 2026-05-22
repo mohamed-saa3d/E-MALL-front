@@ -1,8 +1,8 @@
 import AuthLayout from "@/components/layouts/AuthLayout";
+import { WithChildren } from "@/types/common.types";
 
-interface Props {
-  children: React.ReactNode;
-}
+type Props = WithChildren;
+
 const Layout = ({ children }: Props) => {
   return <AuthLayout>{children}</AuthLayout>;
 };
