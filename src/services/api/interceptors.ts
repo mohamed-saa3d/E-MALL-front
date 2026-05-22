@@ -8,6 +8,8 @@ import { env } from "@/config/env";
 import apiClient from "./client";
 import { TokenService } from "@/services/storage/token.service";
 import { logger } from "@/services/logger/logger";
+import { forceLogout } from "@/modules/auth/services/forceLogout.services";
+import { RefreshResponse } from "@/modules/auth/types/auth.types";
 
 type RetryRequestConfig = InternalAxiosRequestConfig & {
   _retry?: boolean;
@@ -23,12 +25,8 @@ const refreshApi = axios.create({
 
 let refreshPromise: Promise<string> | null = null;
 
-function forceLogout() {
-  TokenService.clearAccessToken();
-
-  if (typeof window !== "undefined") {
-    window.location.href = "/login";
-  }
+function isRefreshRequest(url?: string) {
+  return url?.includes("/auth/refresh");
 }
 
 apiClient.interceptors.request.use(
@@ -36,7 +34,7 @@ apiClient.interceptors.request.use(
     const token = TokenService.getAccessToken();
 
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.set?.("Authorization", `Bearer ${token}`);
     }
 
     return config;
@@ -62,6 +60,11 @@ apiClient.interceptors.response.use(
       return Promise.reject(error);
     }
 
+    if (isRefreshRequest(originalRequest.url)) {
+      TokenService.clearAccessToken();
+      return Promise.reject(error);
+    }
+
     originalRequest._retryCount = originalRequest._retryCount ?? 0;
 
     if (
@@ -78,9 +81,10 @@ apiClient.interceptors.response.use(
     try {
       if (!refreshPromise) {
         refreshPromise = refreshApi
-          .post<{ accessToken: string }>("/auth/refresh")
+          .post<RefreshResponse>("/auth/refresh")
+
           .then((res) => {
-            const newAccessToken = res.data.accessToken;
+            const newAccessToken = res.data.token;
 
             if (!newAccessToken) {
               throw new Error("No access token returned from refresh endpoint");
@@ -97,13 +101,20 @@ apiClient.interceptors.response.use(
 
       TokenService.setAccessToken(newAccessToken);
 
-      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+      originalRequest.headers.set?.(
+        "Authorization",
+        `Bearer ${newAccessToken}`,
+      );
 
       return apiClient(originalRequest);
     } catch (refreshError) {
       logger.error("Refresh token failed", refreshError);
 
-      forceLogout();
+      forceLogout({
+        redirectTo: "/login",
+        reason: "REFRESH_TOKEN_FAILED",
+      });
+
       return Promise.reject(refreshError);
     }
   },

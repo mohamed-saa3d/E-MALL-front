@@ -7,45 +7,71 @@ type ApiErrorResponse = {
   code?: string | number;
 };
 
-export class AppError extends Error {
+export type AppError = {
+  name: "AppError";
+  message: string;
   status?: number;
   code?: string | number;
+};
 
-  constructor(message: string, status?: number, code?: string | number) {
-    super(message);
-    this.name = "AppError";
-    this.status = status;
-    this.code = code;
-  }
+function createAppError(
+  message: string,
+  status?: number,
+  code?: string | number,
+): AppError {
+  return {
+    name: "AppError",
+    message,
+    status,
+    code,
+  };
+}
+
+function shouldLogError(status?: number, url?: string) {
+  const isExpectedRefreshError =
+    status === 401 && url?.includes("/auth/refresh");
+
+  const isExpectedClientError =
+    status !== undefined && [400, 401, 403, 404, 409, 422].includes(status);
+
+  return !isExpectedRefreshError && !isExpectedClientError;
 }
 
 export function handleError(error: unknown): never {
-  logger.error("API Error", error);
-
   if (axios.isAxiosError<ApiErrorResponse>(error)) {
     if (error.code === "ECONNABORTED") {
-      throw new AppError("Request timeout. Please try again.", 408, error.code);
+      console.log(error.code);
+      throw createAppError(
+        "Request timeout. Please try again.",
+        408,
+        error.code,
+      );
+    }
+
+    const status = error.response?.status;
+    const url = error.config?.url;
+
+    if (shouldLogError(status, url)) {
+      logger.error("API Error", error);
     }
 
     if (!error.response) {
-      throw new AppError("Network error. Please check your connection.");
+      throw createAppError("Network error. Please check your connection.");
     }
 
-    const status = error.response.status;
     const data = error.response.data;
 
     const message =
-      data?.message ||
-      data?.error ||
-      error.message ||
-      "Something went wrong";
+      data?.message || data?.error || error.message || "Something went wrong";
 
-    throw new AppError(message, status, data?.code);
+    throw createAppError(message, status, data?.code);
   }
 
   if (error instanceof Error) {
-    throw new AppError(error.message);
+    logger.error("Unexpected Error", error);
+    throw createAppError(error.message);
   }
 
-  throw new AppError("Unknown error");
+  logger.error("Unknown Error", error);
+  throw createAppError("Unknown error");
 }

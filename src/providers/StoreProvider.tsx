@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import { Provider } from "react-redux";
 import makeStore, { type AppStore } from "@/store";
+import { WithChildren } from "@/types/common.types";
 
-interface StoreProviderProps {
-  children: React.ReactNode;
-}
+type Props = WithChildren;
 
-const StoreProvider = ({ children }: StoreProviderProps) => {
+
+const StoreProvider = ({ children }: Props) => {
   const [store] = useState<AppStore>(() => makeStore());
 
   return <Provider store={store}>{children}</Provider>;

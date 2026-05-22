@@ -11,3 +11,8 @@ const apiClient: AxiosInstance = axios.create({
   },
 });
 export default apiClient;
+
+export const refreshClient = axios.create({
+  baseURL: env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
+});
