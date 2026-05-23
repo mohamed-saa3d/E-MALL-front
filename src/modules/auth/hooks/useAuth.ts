@@ -13,6 +13,7 @@ export function useAuth() {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const isInitialized = useAppSelector(selectIsAuthInitialized);
   const role = useAppSelector(selectUserRole);
+
   return {
     user,
     role,
