@@ -1,4 +1,5 @@
 import { TokenService } from "@/services/storage/token.service";
+import { isBrowser } from "@/utils";
 
 export const FORCE_LOGOUT_EVENT = "force-logout";
 
@@ -10,7 +11,7 @@ interface ForceLogoutOptions {
 export function forceLogout(options?: ForceLogoutOptions) {
   TokenService.clearAccessToken();
 
-  if (typeof window === "undefined") return;
+  if (!isBrowser) return;
 
   window.dispatchEvent(
     new CustomEvent(FORCE_LOGOUT_EVENT, {
