@@ -18,7 +18,7 @@ async function request<T, D = unknown>(
 
     return res.data;
   } catch (error) {
-    return Promise.reject(handleError(error));
+    handleError(error);
   }
 }
 

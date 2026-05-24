@@ -1,9 +1,3 @@
-import React from 'react'
+const RegisterPage = () => {};
 
-const RegisterPage = () => {
-  return (
-    <></>
-  )
-}
-
-export default RegisterPage
+export default RegisterPage;
