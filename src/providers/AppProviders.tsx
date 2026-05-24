@@ -3,14 +3,16 @@ import StoreProvider from "./StoreProvider";
 import ReactQueryProvider from "./ReactQueryProvider";
 import AuthProvider from "./AuthProvider";
 import { WithChildren } from "@/types/common.types";
+import SocketProvider from "./SocketProvider";
 
-type Props = WithChildren;
 
-const AppProviders = ({ children }: Props) => {
+const AppProviders = ({ children }: WithChildren) => {
   return (
     <StoreProvider>
       <ReactQueryProvider>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <SocketProvider>{children}</SocketProvider>
+        </AuthProvider>
       </ReactQueryProvider>
     </StoreProvider>
   );
