@@ -14,12 +14,6 @@ export const AUTHENTICATED_ROUTES = [
   "/notifications",
 ];
 
-export const USER_ROUTES = [
-  "/cart",
-  "/checkout",
-  "/orders",
-  "/wishlist",
-];
+export const USER_ROUTES = ["/cart", "/checkout", "/orders", "/wishlist"];
 export const VENDOR_ROUTES = ["/vendor"];
 export const ADMIN_ROUTES = ["/admin"];
-

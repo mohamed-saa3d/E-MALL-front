@@ -5,9 +5,11 @@ import { WithChildren } from "@/types/common.types";
 type Props = WithChildren;
 
 const Layout = ({ children }: Props) => {
-  return <RoleGuard allowedRoles={["user"]} >
-  <UserLayout>{children}</UserLayout>
-  </RoleGuard>
+  return (
+    <RoleGuard allowedRoles={["user"]}>
+      <UserLayout>{children}</UserLayout>
+    </RoleGuard>
+  );
 };
 
 export default Layout;

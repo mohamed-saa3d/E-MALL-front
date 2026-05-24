@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  useQuery,
-  type QueryKey,
-  type UseQueryOptions,
-} from "@tanstack/react-query";
+import { useQuery, type QueryKey, type UseQueryOptions } from "@tanstack/react-query";
 
 import type { AppError } from "@/services/api/api.types";
 

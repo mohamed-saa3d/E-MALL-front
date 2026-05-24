@@ -43,6 +43,3 @@ export const api = {
     return request<T>("DELETE", url, undefined, config);
   },
 };
-
-
-

@@ -7,8 +7,7 @@ const envSchema = z.object({
       try {
         const url = new URL(val);
 
-        const isLocalhost =
-          url.hostname === "localhost" || url.hostname === "127.0.0.1";
+        const isLocalhost = url.hostname === "localhost" || url.hostname === "127.0.0.1";
 
         if (isLocalhost) {
           return url.protocol === "http:";

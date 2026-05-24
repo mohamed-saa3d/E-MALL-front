@@ -1,8 +1,4 @@
-import axios, {
-  AxiosError,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 import { env } from "@/config/env";
 import apiClient from "./client";
@@ -67,10 +63,7 @@ apiClient.interceptors.response.use(
 
     originalRequest._retryCount = originalRequest._retryCount ?? 0;
 
-    if (
-      originalRequest._retry ||
-      originalRequest._retryCount >= MAX_RETRY_COUNT
-    ) {
+    if (originalRequest._retry || originalRequest._retryCount >= MAX_RETRY_COUNT) {
       logger.warn("Maximum token refresh retry reached");
       return Promise.reject(error);
     }
@@ -101,10 +94,7 @@ apiClient.interceptors.response.use(
 
       TokenService.setAccessToken(newAccessToken);
 
-      originalRequest.headers.set?.(
-        "Authorization",
-        `Bearer ${newAccessToken}`,
-      );
+      originalRequest.headers.set?.("Authorization", `Bearer ${newAccessToken}`);
 
       return apiClient(originalRequest);
     } catch (refreshError) {
