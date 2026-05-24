@@ -1,30 +1,33 @@
-export const isDev = process.env.NODE_ENV === "development";
+import type { LogContext, LogLevel, LogPayload } from "./logger.types";
+
+const isProduction = process.env.NODE_ENV === "production";
+
+function log(level: LogLevel, payload: LogPayload) {
+  if (!isProduction) {
+    console[level](`[${level.toUpperCase()}] ${payload.message}`, {
+      error: payload.error,
+      context: payload.context,
+    });
+  }
+
+  // Production monitoring later:
+  // Sentry / LogRocket / Datadog
+}
 
 export const logger = {
-  error(message: string, error?: unknown) {
-    if (isDev) {
-      console.error(message, error);
-    }
-
-    // Future:
-    // Send to Sentry / LogRocket / Datadog
+  error(message: string, error?: unknown, context?: LogContext) {
+    log("error", { message, error, context });
   },
 
-  warn(message: string, data?: unknown) {
-    if (isDev) {
-      console.warn(message, data);
-    }
+  warn(message: string, context?: LogContext) {
+    log("warn", { message, context });
   },
 
-  info(message: string, data?: unknown) {
-    if (isDev) {
-      console.info(message, data);
-    }
+  info(message: string, context?: LogContext) {
+    log("info", { message, context });
   },
 
-  debug(message: string, data?: unknown) {
-    if (isDev) {
-      console.debug(message, data);
-    }
+  debug(message: string, context?: LogContext) {
+    log("debug", { message, context });
   },
 };

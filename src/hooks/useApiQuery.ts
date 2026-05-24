@@ -6,11 +6,13 @@ import {
   type UseQueryOptions,
 } from "@tanstack/react-query";
 
+import type { AppError } from "@/services/api/api.types";
+
 interface UseApiQueryProps<TResponse> {
   queryKey: QueryKey;
   queryFn: () => Promise<TResponse>;
   options?: Omit<
-    UseQueryOptions<TResponse, Error, TResponse, QueryKey>,
+    UseQueryOptions<TResponse, AppError, TResponse, QueryKey>,
     "queryKey" | "queryFn"
   >;
 }
@@ -20,7 +22,7 @@ export function useApiQuery<TResponse>({
   queryFn,
   options,
 }: UseApiQueryProps<TResponse>) {
-  return useQuery<TResponse, Error>({
+  return useQuery<TResponse, AppError, TResponse, QueryKey>({
     queryKey,
     queryFn,
     ...options,

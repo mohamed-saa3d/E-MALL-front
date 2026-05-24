@@ -17,7 +17,7 @@ function matchesRoute(pathname: string, routes: string[]) {
 }
 
 export function proxy(request: NextRequest) {
-console.log("PROXY RUNNING:", request.nextUrl.pathname);
+  console.log("PROXY RUNNING:", request.nextUrl.pathname);
 
   const { pathname } = request.nextUrl;
 
@@ -73,24 +73,20 @@ console.log("PROXY RUNNING:", request.nextUrl.pathname);
 
 export const config = {
   matcher: [
-  "/login",
-  "/register",
-  "/forgot-password",
-  "/reset-password/:path*",
-  "/verify-email",
-  "/change-password",
-  "/profile/:path*",
-  "/cart/:path*",
-  "/wishlist/:path*",
-  "/checkout/:path*",
-  "/orders/:path*",
-  "/settings/:path*",
-  "/admin/:path*",
-  "/vendor/:path*",
-  "/notifications/:path*"
-  ]
-}
-
-
-
-
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password/:path*",
+    "/verify-email",
+    "/change-password",
+    "/profile/:path*",
+    "/cart/:path*",
+    "/wishlist/:path*",
+    "/checkout/:path*",
+    "/orders/:path*",
+    "/settings/:path*",
+    "/admin/:path*",
+    "/vendor/:path*",
+    "/notifications/:path*",
+  ],
+};
