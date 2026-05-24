@@ -1,5 +1,6 @@
 import type { Middleware } from "@reduxjs/toolkit";
 import { addItem, removeItem, updateQuantity, clearCart ,  setCart} from "./cart.slice";
+import { isBrowser } from "@/utils";
 
 export const cartLocalStorageMiddleware: Middleware =
   (store) => (next) => (action) => {
@@ -13,7 +14,7 @@ export const cartLocalStorageMiddleware: Middleware =
         setCart.match(action)
     ) {
       const items = store.getState().cart.items;
-      if (typeof window !== "undefined") {
+      if (isBrowser) {
   localStorage.setItem("guest_cart", JSON.stringify(items));
 }
 
