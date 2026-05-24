@@ -7,7 +7,6 @@ import { WithChildren } from "@/types/common.types";
 
 type Props = WithChildren;
 
-
 const StoreProvider = ({ children }: Props) => {
   const [store] = useState<AppStore>(() => makeStore());
 

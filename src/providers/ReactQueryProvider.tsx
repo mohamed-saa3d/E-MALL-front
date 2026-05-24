@@ -8,9 +8,7 @@ interface ReactQueryProviderProps {
   children: ReactNode;
 }
 
-export default function ReactQueryProvider({
-  children,
-}: ReactQueryProviderProps) {
+export default function ReactQueryProvider({ children }: ReactQueryProviderProps) {
   const [queryClient] = useState(
     () =>
       new QueryClient({

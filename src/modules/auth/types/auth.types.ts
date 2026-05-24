@@ -67,7 +67,6 @@ export interface VerifyEmailPayload extends EmailPayload {
   verifyCode: string;
 }
 
-
 export type UseLogoutOptions = {
   redirectToLogin?: boolean;
 };

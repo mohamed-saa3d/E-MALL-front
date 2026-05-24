@@ -8,10 +8,7 @@ interface ClearAuthStateOptions {
   queryClient: QueryClient;
 }
 
-export function clearAuthState({
-  dispatch,
-  queryClient,
-}: ClearAuthStateOptions) {
+export function clearAuthState({ dispatch, queryClient }: ClearAuthStateOptions) {
   TokenService.clearAccessToken();
   dispatch(clearCredentials());
   queryClient.clear();

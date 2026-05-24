@@ -3,16 +3,11 @@
 import { useRouter } from "next/navigation";
 import { useApiMutation } from "@/hooks/useApiMutation";
 import { authApi } from "../api/auth.api";
-import type {
-  VerifyEmailPayload,
-  VerifyEmailResponse,
-} from "../types/auth.types";
+import type { VerifyEmailPayload, VerifyEmailResponse } from "../types/auth.types";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { getDashboardPath } from "../utils/getDashboardPath";
 
-export function useVerifyEmail({
-  onVerified,
-}: { onVerified?: () => void } = {}) {
+export function useVerifyEmail({ onVerified }: { onVerified?: () => void } = {}) {
   const { user } = useAuth();
   const router = useRouter();
 
@@ -22,8 +17,7 @@ export function useVerifyEmail({
     options: {
       onSuccess: () => {
         onVerified?.();
-        router.push(getDashboardPath(user?.role))
-        
+        router.push(getDashboardPath(user?.role));
       },
     },
   });

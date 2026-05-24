@@ -38,11 +38,7 @@ export function handleError(error: unknown): never {
         code: error.code,
       });
 
-      throw createAppError(
-        "Request timeout. Please try again.",
-        408,
-        error.code,
-      );
+      throw createAppError("Request timeout. Please try again.", 408, error.code);
     }
 
     if (!error.response) {

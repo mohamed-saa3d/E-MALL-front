@@ -1,10 +1,15 @@
 import type { LogContext, LogLevel, LogPayload } from "./logger.types";
 
 const isProduction = process.env.NODE_ENV === "production";
-
+const consoleMethods = {
+  error: console.error,
+  warn: console.warn,
+  info: console.info,
+  debug: console.debug,
+};
 function log(level: LogLevel, payload: LogPayload) {
   if (!isProduction) {
-    console[level](`[${level.toUpperCase()}] ${payload.message}`, {
+    consoleMethods[level](`[${level.toUpperCase()}] ${payload.message}`, {
       error: payload.error,
       context: payload.context,
     });

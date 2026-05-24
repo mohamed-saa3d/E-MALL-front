@@ -5,10 +5,7 @@ import "@/services/api/interceptors";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { refreshSession } from "@/modules/auth/api/auth.api";
-import {
-  setCredentials,
-  setAuthInitialized,
-} from "@/modules/auth/store/auth.slice";
+import { setCredentials, setAuthInitialized } from "@/modules/auth/store/auth.slice";
 import { TokenService } from "@/services/storage/token.service";
 import { useAppDispatch } from "@/store/hooks";
 import { FORCE_LOGOUT_EVENT } from "@/modules/auth/services/forceLogout.services";

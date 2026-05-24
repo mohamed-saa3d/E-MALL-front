@@ -5,7 +5,6 @@ import AuthProvider from "./AuthProvider";
 import { WithChildren } from "@/types/common.types";
 import SocketProvider from "./SocketProvider";
 
-
 const AppProviders = ({ children }: WithChildren) => {
   return (
     <StoreProvider>

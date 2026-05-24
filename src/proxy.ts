@@ -11,14 +11,10 @@ import {
 } from "@/constants/routes";
 
 function matchesRoute(pathname: string, routes: string[]) {
-  return routes.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`),
-  );
+  return routes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 }
 
 export function proxy(request: NextRequest) {
-  console.log("PROXY RUNNING:", request.nextUrl.pathname);
-
   const { pathname } = request.nextUrl;
 
   const refreshToken = request.cookies.get("refreshToken")?.value;

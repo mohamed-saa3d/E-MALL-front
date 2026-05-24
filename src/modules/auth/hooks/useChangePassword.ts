@@ -3,17 +3,10 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
 import { authApi } from "../api/auth.api";
 
-import type {
-  ChangePasswordPayload,
-  ChangePasswordResponse,
-  
-} from "../types/auth.types";
+import type { ChangePasswordPayload, ChangePasswordResponse } from "../types/auth.types";
 
 export function useChangePassword() {
-  return useApiMutation<
-    ChangePasswordPayload,
-    ChangePasswordResponse
-  >({
+  return useApiMutation<ChangePasswordPayload, ChangePasswordResponse>({
     mutationFn: authApi.changePassword,
   });
 }
