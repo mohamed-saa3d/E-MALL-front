@@ -1,35 +1,23 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import AppProviders from "@/providers/AppProviders";
-import { WithChildren } from "@/types/common.types";
+import { Analytics } from '@vercel/analytics/next'
+import type { Metadata, Viewport } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { ThemeProvider } from '@/components/e-mall/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
+import './globals.css'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
-  title: "E-MALL Shopping",
-  description:
-    "Shop from thousands of products in one online mall that brings together the best stores in one place, with ease and security.",
-};
-type Props = WithChildren;
+  title: { default: 'E-Mall — Everything in one place', template: '%s | E-Mall' },
+  description: 'Discover top stores, exclusive deals, and the latest arrivals in one digital mall.',
+}
 
-export default function RootLayout({ children }: Readonly<Props>) {
-  return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        <AppProviders>{children}</AppProviders>
-      </body>
-    </html>
-  );
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [{ media: '(prefers-color-scheme: light)', color: '#f7faf9' }, { media: '(prefers-color-scheme: dark)', color: '#071c19' }],
+}
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en" suppressHydrationWarning className="bg-background"><body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}><ThemeProvider>{children}<Toaster richColors /></ThemeProvider>{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
 }
