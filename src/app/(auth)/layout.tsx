@@ -1,10 +1,6 @@
-import AuthLayout from "@/components/layouts/AuthLayout";
-import { WithChildren } from "@/types/common.types";
+import type { ReactNode } from 'react'
+import { AuthLayout as AuthShell } from '@/components/layouts/AuthLayout'
 
-type Props = WithChildren;
-
-const Layout = ({ children }: Props) => {
-  return <AuthLayout>{children}</AuthLayout>;
-};
-
-export default Layout;
+export default function AuthGroupLayout({ children }: { children: ReactNode }) {
+  return <AuthShell>{children}</AuthShell>
+}

@@ -1,10 +1,6 @@
-import PublicLayout from "@/components/layouts/PublicLayout";
-import { WithChildren } from "@/types/common.types";
+import type { ReactNode } from 'react'
+import { PublicLayout as PublicShell } from '@/components/layouts/PublicLayout'
 
-type Props = WithChildren;
-
-const Layout = ({ children }: Props) => {
-  return <PublicLayout>{children}</PublicLayout>;
-};
-
-export default Layout;
+export default function PublicGroupLayout({ children }: { children: ReactNode }) {
+  return <PublicShell>{children}</PublicShell>
+}

@@ -1,36 +1,5 @@
-"use client";
-import { useLogout } from "@/modules/auth/hooks/useLogout";
-import { useVerifyEmail } from "@/modules/auth/hooks/useVerifyEmail";
-import { useEffect, useRef } from "react";
+import { VerifyForm } from '@/modules/auth/components/verify-form'
 
-const VerifyEmailPage = () => {
-  const emailVerifiedRef = useRef(false);
-  const { mutate: logout } = useLogout({ redirectToLogin: false });
-  const logoutTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { mutate: _verifyEmail } = useVerifyEmail({
-    onVerified: () => {
-      emailVerifiedRef.current = true;
-      if (logoutTimerRef.current) {
-        clearTimeout(logoutTimerRef.current);
-      }
-    },
-  });
-
-  useEffect(() => {
-    if (logoutTimerRef.current) {
-      clearTimeout(logoutTimerRef.current);
-    }
-
-    return () => {
-      logoutTimerRef.current = setTimeout(() => {
-        if (!emailVerifiedRef.current) {
-          logout();
-        }
-      }, 500);
-    };
-  }, [logout]);
-
-  return <></>;
-};
-
-export default VerifyEmailPage;
+export default function VerifyEmailPage() {
+  return <VerifyForm />
+}
