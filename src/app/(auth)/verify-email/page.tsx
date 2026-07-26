@@ -1,4 +1,4 @@
-import { VerifyForm } from '@/modules/auth/components/verify-form'
+import { VerifyForm } from '@/components/auth/verify-form'
 
 export default function VerifyEmailPage() {
   return <VerifyForm />
