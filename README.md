@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 E-MALL — Enterprise E-Commerce Frontend
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-2.0-764ABC?style=for-the-badge&logo=redux)
+![TanStack Query](https://img.shields.io/badge/TanStack_Query-5.0-FF4154?style=for-the-badge&logo=react-query)
 
-First, run the development server:
+A modern, highly scalable, and type-safe E-Commerce frontend platform built using **Next.js (App Router)** and **TypeScript**. Engineered following **Feature-Driven Modular Architecture**, strict separation of concerns, resilient authentication mechanics, and enterprise-grade state management.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🌐 **[Live Demo](https://e-mall-demo.vercel.app)** | 📖 **[API Documentation](#)**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Key Technical Highlights
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* 🔒 **Role-Based Access Control (RBAC)**: Multi-tenant protection for `user`, `vendor`, and `admin` roles utilizing Next.js Middleware and client-side guards (`RoleGuard`, `ProtectedRoute`).
+* ⚡ **Resilient Network Layer**: Axios Interceptors with silent background token refreshing (`refreshToken`), request queuing for concurrent `401`s, and strict error boundaries.
+* 🎯 **100% Strict Type Safety**: End-to-end TypeScript interfaces aligning directly with flat backend payloads.
+* 📦 **Dual State Architecture**:
+  * **Redux Toolkit**: Synchronous UI state, local cart persistence, and auth state management.
+  * **TanStack Query (React Query)**: Server state hydration, asynchronous caching, and optimistic UI updates.
+* 🏗️ **Domain-Driven Modular Architecture**: Clean separation where each feature encapsulates its own APIs, types, components, slices, and hooks.
+* 🎨 **Production UX**: Graceful loading fallbacks, zero blank screens during rehydration, and full screen responsiveness.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack & Ecosystem
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Core Framework & Language
+* **Framework**: [Next.js](https://nextjs.org/) (App Router)
+* **Language**: [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### State Management & Data Fetching
+* **Global App State**: [Redux Toolkit](https://redux-toolkit.js.org/)
+* **Server State & Caching**: [TanStack Query v5](https://tanstack.com/query)
+* **HTTP Client**: [Axios](https://axios-http.com/) (Custom Interceptors & Storage sync)
 
-## Deploy on Vercel
+### UI & Styling
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **Icons**: [Lucide React](https://lucide.dev/)
+* **Class Utilities**: `clsx` & `tailwind-merge` (`cn` helper)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Quality Assurance & Tooling
+* **Git Hooks**: [Husky](https://typicode.github.io/husky/) (Pre-commit linting & workspace type-checking)
+* **Formatters & Linters**: Prettier & ESLint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📁 Project Architecture
+
+The workspace adheres to a **Modular Feature-Driven Structure** under `src/`:
+
+```text
+src/
+├── app/                   # Next.js App Router (Layouts & Route Groups)
+│   ├── (admin)/           # Dedicated Admin Dashboard Routes
+│   ├── (auth)/            # Auth Suite (Login, Register, Password Reset)
+│   ├── (protected)/       # Authenticated Application Routes
+│   ├── (public)/          # Public Storefront & Browsing Pages
+│   ├── (user)/            # Customer Checkout & Profile Routes
+│   └── (vendor)/          # Vendor Management Routes
+├── components/            # Shared Layouts & Common UI Elements
+├── config/                # Environment Configuration & Schema Validation
+├── constants/             # App-wide Routes & Static Constants
+├── hooks/                 # Reusable Generic Hooks (`useApiMutation`, etc.)
+├── modules/               # Domain Modules (Feature-based Boundaries)
+│   ├── auth/              # Auth API, Slices, Guards, Hooks & Types
+│   └── cart/              # Cart Business Logic, LocalStorage Sync Middleware
+├── providers/             # React Context Providers (Store, Query, Auth)
+├── services/              # Axios Client, Interceptors, Logger & Storage
+├── store/                 # Centralized Redux Store Configuration
+└── utils/                 # Formatters, Helpers, and Custom Validators
