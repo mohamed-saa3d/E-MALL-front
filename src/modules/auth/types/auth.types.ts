@@ -28,15 +28,12 @@ interface MessageResponse {
   message: string;
 }
 
-interface AuthData {
+export interface AuthBaseResponse {
+  token: string;
+  refreshToken: string;
+  expiresAt: string | number;
   user: AuthUser;
 }
-
-type AuthBaseResponse = {
-  status: string;
-  token: string;
-  data: AuthData;
-};
 
 /* =========================
    Auth Payloads
@@ -75,9 +72,13 @@ export type UseLogoutOptions = {
    Responses
 ========================= */
 
-export type AuthResponse = AuthBaseResponse;
+export interface AuthResponse extends AuthBaseResponse {}
 
-export type RefreshResponse = AuthBaseResponse;
+export interface RefreshResponse extends AuthBaseResponse {}
+
+export interface RegisterResponse extends AuthBaseResponse {
+  session?: any;
+}
 
 export type SendCodeResponse = MessageResponse;
 
@@ -92,7 +93,7 @@ export interface ChangePasswordResponse extends MessageResponse {
 }
 
 export interface VerifyEmailResponse {
-  status: "fail" | "error";
+  status: "success" | "fail" | "error";
   message: string;
   error?: {
     statusCode: number;

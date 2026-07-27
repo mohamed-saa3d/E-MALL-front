@@ -9,7 +9,7 @@ interface ForceLogoutOptions {
 }
 
 export function forceLogout(options?: ForceLogoutOptions) {
-  TokenService.clearAccessToken();
+  TokenService.clearAuthTokens();
 
   if (!isBrowser) return;
 

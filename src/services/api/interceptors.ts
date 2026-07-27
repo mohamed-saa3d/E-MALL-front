@@ -20,9 +20,28 @@ const refreshApi = axios.create({
 });
 
 let refreshPromise: Promise<string> | null = null;
+let failedQueue: Array<{
+  resolve: (value: string) => void;
+  reject: (reason?: unknown) => void;
+}> = [];
 
 function isRefreshRequest(url?: string) {
   return url?.includes("/auth/refresh");
+}
+
+function processQueue(error: unknown, token?: string) {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+      return;
+    }
+
+    if (token) {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
 }
 
 apiClient.interceptors.request.use(
@@ -57,7 +76,7 @@ apiClient.interceptors.response.use(
     }
 
     if (isRefreshRequest(originalRequest.url)) {
-      TokenService.clearAccessToken();
+      TokenService.clearAuthTokens();
       return Promise.reject(error);
     }
 
@@ -77,13 +96,14 @@ apiClient.interceptors.response.use(
           .post<RefreshResponse>("/auth/refresh")
 
           .then((res) => {
-            const newAccessToken = res.data.token;
+            const { token, refreshToken, expiresAt } = res.data;
 
-            if (!newAccessToken) {
+            if (!token) {
               throw new Error("No access token returned from refresh endpoint");
             }
 
-            return newAccessToken;
+            TokenService.setAuthTokens({ token, refreshToken, expiresAt });
+            return token;
           })
           .finally(() => {
             refreshPromise = null;
@@ -92,12 +112,13 @@ apiClient.interceptors.response.use(
 
       const newAccessToken = await refreshPromise;
 
-      TokenService.setAccessToken(newAccessToken);
+      processQueue(null, newAccessToken);
 
       originalRequest.headers.set?.("Authorization", `Bearer ${newAccessToken}`);
 
       return apiClient(originalRequest);
     } catch (refreshError) {
+      processQueue(refreshError);
       logger.error("Refresh token failed", refreshError);
 
       forceLogout({

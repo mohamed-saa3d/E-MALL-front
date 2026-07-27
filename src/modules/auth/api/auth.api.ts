@@ -4,6 +4,7 @@ import {
   LoginPayload,
   RegisterPayload,
   RefreshResponse,
+  RegisterResponse,
   SendVerificationCodePayload,
   SendCodeResponse,
   VerifyEmailPayload,
@@ -23,7 +24,7 @@ export const authApi = {
   },
 
   register(payload: RegisterPayload) {
-    return api.post<AuthResponse, RegisterPayload>("/auth/register", payload);
+    return api.post<RegisterResponse, RegisterPayload>("/auth/register", payload);
   },
 
   refresh() {
