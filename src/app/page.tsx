@@ -1,3 +1,6 @@
-export default function Home() {
-  return <main></main>;
+
+import { Marketplace } from '@/components/e-mall/marketplace'
+
+export default function Page() {
+  return <Marketplace />
 }

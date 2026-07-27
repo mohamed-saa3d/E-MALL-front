@@ -1,1 +1,24 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover); --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * .65); --radius-md: calc(var(--radius) * .82); --radius-lg: var(--radius); --radius-xl: calc(var(--radius) * 1.35); --radius-2xl: calc(var(--radius) * 1.8); --radius-3xl: calc(var(--radius) * 2.3); --radius-4xl: calc(var(--radius) * 2.8);
+}
+
+:root { color-scheme: light; --background: oklch(.985 .006 175); --foreground: oklch(.18 .025 175); --card: oklch(1 0 0); --card-foreground: var(--foreground); --popover: var(--card); --popover-foreground: var(--foreground); --primary: oklch(.60 .16 165); --primary-foreground: oklch(.99 0 0); --secondary: oklch(.94 .025 170); --secondary-foreground: oklch(.25 .05 170); --muted: oklch(.96 .01 175); --muted-foreground: oklch(.48 .02 175); --accent: oklch(.92 .04 165); --accent-foreground: oklch(.25 .07 165); --destructive: oklch(.58 .21 28); --border: oklch(.89 .015 175); --input: var(--border); --ring: var(--primary); --radius: .8rem; }
+.dark { color-scheme: dark; --background: oklch(.14 .035 175); --foreground: oklch(.96 .01 170); --card: oklch(.19 .035 175); --card-foreground: var(--foreground); --popover: var(--card); --popover-foreground: var(--foreground); --primary: oklch(.72 .17 160); --primary-foreground: oklch(.14 .03 175); --secondary: oklch(.25 .04 175); --secondary-foreground: var(--foreground); --muted: oklch(.23 .028 175); --muted-foreground: oklch(.72 .02 175); --accent: oklch(.27 .06 165); --accent-foreground: var(--foreground); --destructive: oklch(.68 .19 25); --border: oklch(.32 .025 175); --input: oklch(.29 .025 175); --ring: var(--primary); }
+
+@layer base { * { @apply border-border outline-ring/50; } html { @apply bg-background; } body { @apply bg-background text-foreground; } button, a { @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring; } }
