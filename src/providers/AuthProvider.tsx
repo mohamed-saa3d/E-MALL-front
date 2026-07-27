@@ -40,12 +40,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
         if (!isMounted) return;
 
-        TokenService.setAuthTokens({
-          token: data.token,
-          refreshToken: data.refreshToken,
-          expiresAt: data.expiresAt,
-        });
-        dispatch(setCredentials(data.user));
+        TokenService.setAccessToken(data.token);
+        dispatch(setCredentials(data.data.user));
       } catch {
         if (!isMounted) return;
         clearAuthState({ dispatch, queryClient });

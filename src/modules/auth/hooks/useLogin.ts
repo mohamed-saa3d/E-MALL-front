@@ -18,13 +18,9 @@ export function useLogin() {
 
     options: {
       onSuccess: (data) => {
-        TokenService.setAuthTokens({
-          token: data.token,
-          refreshToken: data.refreshToken,
-          expiresAt: data.expiresAt,
-        });
-        dispatch(setCredentials(data.user));
-        router.push(getDashboardPath(data.user.role));
+        TokenService.setAccessToken(data.token);
+        dispatch(setCredentials(data.data.user));
+        router.push(getDashboardPath(data.data.user.role));
       },
     },
   });
