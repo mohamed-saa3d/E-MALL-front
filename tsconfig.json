@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
+    "target": "ES6",
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -11,7 +15,6 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
@@ -20,18 +23,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/app/*": ["./src/app/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/config/*": ["./src/config/*"],
-      "@/constants/*": ["./src/constants/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/modules/*": ["./src/modules/*"],
-      "@/providers/*": ["./src/providers/*"],
-      "@/services/*": ["./src/services/*"],
-      "@/store/*": ["./src/store/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/utils/*": ["./src/utils/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
@@ -39,8 +33,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,3 +1,5 @@
-const RegisterPage = () => {};
+import { AuthForm } from '@/modules/auth/components/auth-form'
 
-export default RegisterPage;
+export default function RegisterPage() {
+  return <AuthForm mode="register" />
+}
