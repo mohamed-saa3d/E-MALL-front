@@ -1,3 +1,4 @@
+
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -19,5 +20,9 @@ export const viewport: Viewport = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" suppressHydrationWarning className="bg-background"><body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}><ThemeProvider>{children}<Toaster richColors /></ThemeProvider>{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
+  return <html lang="en" suppressHydrationWarning className="bg-background"><body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
+    
+    <ThemeProvider>{children}<Toaster richColors /></ThemeProvider>
+    {process.env.NODE_ENV === 'production' && <Analytics />}
+    </body></html>
 }
